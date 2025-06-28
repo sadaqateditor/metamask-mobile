@@ -1,0 +1,29 @@
+workflows:
+  build-android:
+    name: Build MetaMask Mobile APK
+    max_build_duration: 60
+    environment:
+      node: 18.17.1
+      java: 17
+      android: sdk-34
+    scripts:
+      - name: Install dependencies
+        script: |
+          npm install --legacy-peer-deps
+      - name: Clean previous builds
+        script: |
+          cd android
+          ./gradlew clean
+      - name: Build APK
+        script: |
+          cd android
+          ./gradlew assembleRelease
+    artifacts:
+      - android/app/build/outputs/**/*.apk
+    publishing:
+      email:
+        recipients:
+          - sadaqateditor521@gmail.com
+        notify:
+          success: true
+          failure: true
