@@ -3,8 +3,8 @@ workflows:
     name: Build Android APK
     max_build_duration: 60
     environment:
-      node: 20.18.0  # ✅ Updated to required version
-      java: 11
+      node: 20.18.0  # ✅ Required by metamask@7.47.1
+      java: 17       # ✅ Required by latest Android Gradle Plugin
       vars:
         PACKAGE_NAME: "io.metamask"
     scripts:
