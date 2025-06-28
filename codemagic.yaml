@@ -3,10 +3,10 @@ workflows:
     name: Build Android APK
     max_build_duration: 60
     environment:
+      node: 20.18.0  # ✅ Updated to required version
+      java: 11
       vars:
         PACKAGE_NAME: "io.metamask"
-      node: 16.20.0
-      java: 11
     scripts:
       - name: Install dependencies
         script: |
