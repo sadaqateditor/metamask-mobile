@@ -1,13 +1,17 @@
 pluginManagement {
-    includeBuild(new File(["node", "--print", "require.resolve('@react-native/gradle-plugin/package.json', { paths: [require.resolve('react-native/package.json')] })"].execute(null, rootDir).text.trim()).getParentFile().toString())
-    repositories {
-        gradlePluginPortal()
-        mavenLocal()
-        google()
-    }
+  includeBuild('../node_modules/@react-native/gradle-plugin')
+  repositories {
+    gradlePluginPortal()
+    mavenLocal()
+    google()
+    mavenCentral()
+  }
 }
-plugins { id("com.facebook.react.settings") }
- 
+
+plugins {
+  id("com.facebook.react.settings")
+}
+
 extensions.configure(com.facebook.react.ReactSettingsExtension) { ex ->
   if (System.getenv('EXPO_USE_COMMUNITY_AUTOLINKING') == '1') {
     ex.autolinkLibrariesFromCommand()
@@ -16,7 +20,7 @@ extensions.configure(com.facebook.react.ReactSettingsExtension) { ex ->
       'node',
       '--no-warnings',
       '--eval',
-      'require(require.resolve(\'expo-modules-autolinking\', { paths: [require.resolve(\'expo/package.json\')] }))(process.argv.slice(1))',
+      'require(require.resolve("expo-modules-autolinking", { paths: [require.resolve("expo/package.json")] }))(process.argv.slice(1))',
       'react-native-config',
       '--json',
       '--platform',
@@ -31,18 +35,20 @@ rootProject.name = 'MetaMask'
 dependencyResolutionManagement {
   versionCatalogs {
     reactAndroidLibs {
-      from(files(new File(["node", "--print", "require.resolve('react-native/package.json')"].execute(null, rootDir).text.trim(), "../gradle/libs.versions.toml")))
+      from(files("../node_modules/react-native/gradle/libs.versions.toml"))
     }
   }
 }
 
 include ':app'
-includeBuild(new File(["node", "--print", "require.resolve('@react-native/gradle-plugin/package.json', { paths: [require.resolve('react-native/package.json')] })"].execute(null, rootDir).text.trim()).getParentFile())
+includeBuild('../node_modules/@react-native/gradle-plugin')
 includeBuild('../node_modules/@react-native') {}
+
 include ':lottie-react-native'
 project(':lottie-react-native').projectDir = new File(rootProject.projectDir, '../node_modules/lottie-react-native/src/android')
+
 include ':react-native-gesture-handler'
 project(':react-native-gesture-handler').projectDir = new File(rootProject.projectDir, '../node_modules/react-native-gesture-handler/android')
 
-apply from: new File(["node", "--print", "require.resolve('expo/package.json')"].execute(null, rootDir).text.trim(), "../scripts/autolinking.gradle")
+apply from: '../node_modules/expo/scripts/autolinking.gradle'
 useExpoModules()
