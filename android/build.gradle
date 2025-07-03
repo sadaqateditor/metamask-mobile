@@ -10,7 +10,12 @@ buildscript {
     kotlinVersion = "1.9.25"
     androidxCoreVersion = "1.12.0"
     androidxAppCompatVersion = "1.6.1"
-    googlePlayServicesVersion = "18.0.0"
+
+    // ✅ Use valid and latest stable Play Services version
+    googlePlayServicesVersion = "18.2.0"
+    googlePlayServicesIidVersion = "17.0.0"
+    firebaseBomVersion = "32.7.0"
+    installReferrerVersion = "2.2"
   }
 
   repositories {
@@ -31,13 +36,19 @@ allprojects {
   repositories {
     google()
     mavenCentral()
+
     maven {
       url("$rootDir/../node_modules/detox/Detox-android")
     }
+
     // Notifee repository
     maven {
-      url(new File(['node', '--print', "require.resolve('@notifee/react-native/package.json')"].execute(null, rootDir).text.trim(), '../android/libs'))
+      url(new File(['node', '--print', "require.resolve('@notifee/react-native/package.json')"]
+        .execute(null, rootDir)
+        .text
+        .trim(), '../android/libs'))
     }
+
     maven { url "https://jitpack.io" }
 
     // For react-native-v8
@@ -54,7 +65,18 @@ allprojects {
       // Force specific versions for consistency
       force "androidx.core:core-ktx:$androidxCoreVersion"
       force "androidx.appcompat:appcompat:$androidxAppCompatVersion"
+
+      // ✅ Force known working Google Play Services versions
       force "com.google.android.gms:play-services-base:$googlePlayServicesVersion"
+      force "com.google.android.gms:play-services-auth:21.2.0"
+      force "com.google.android.gms:play-services-auth-api-phone:18.0.2"
+      force "com.google.android.gms:play-services-auth-base:18.0.10"
+      force "com.google.android.gms:play-services-fido:20.0.1"
+      force "com.google.android.gms:play-services-mlkit-barcode-scanning:18.3.1"
+      force "com.google.mlkit:common:18.11.0"
+      force "com.google.mlkit:vision-common:17.3.0"
+      force "com.google.android.gms:play-services-iid:$googlePlayServicesIidVersion"
+      force "com.android.installreferrer:installreferrer:$installReferrerVersion"
     }
   }
 }

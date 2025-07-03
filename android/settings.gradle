@@ -50,5 +50,9 @@ project(':lottie-react-native').projectDir = new File(rootProject.projectDir, '.
 include ':react-native-gesture-handler'
 project(':react-native-gesture-handler').projectDir = new File(rootProject.projectDir, '../node_modules/react-native-gesture-handler/android')
 
+// 🔥 REMOVE or COMMENT this if it exists
+// include ':metamask_react-native-payments'
+// project(':metamask_react-native-payments').projectDir = new File(rootProject.projectDir, '../node_modules/metamask-react-native-payments/android')
+
 apply from: '../node_modules/expo/scripts/autolinking.gradle'
 useExpoModules()

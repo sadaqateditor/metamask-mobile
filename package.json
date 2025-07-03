@@ -3,6 +3,7 @@
   "version": "7.47.1",
   "private": true,
   "scripts": {
+    "postinstall": "patch-package",
     "install:foundryup": "yarn mm-foundryup",
     "anvil": "node_modules/.bin/anvil",
     "audit:ci": "./scripts/yarn-audit.sh",
